@@ -1,9 +1,9 @@
 package es.uji.martinez.Programacion_Avanzada.Practica1;
 
-import java.util.List;
+import java.util.*;
 
 public class Row {
-    private List<Double> data;
+    protected List<Double> data;
 
     public Row(List<Double> data) {
         this.data = data;

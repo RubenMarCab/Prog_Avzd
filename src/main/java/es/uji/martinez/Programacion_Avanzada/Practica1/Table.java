@@ -1,12 +1,10 @@
 package es.uji.martinez.Programacion_Avanzada.Practica1;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Table {
-    
-    private List<String> headers;
-    private List<Row> rows;
+    protected List<String> headers;
+    protected List<Row> rows;
 
     public Table(List<String> headers) {
         this.headers = headers;
