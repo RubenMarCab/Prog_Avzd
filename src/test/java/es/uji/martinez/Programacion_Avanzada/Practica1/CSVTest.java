@@ -68,7 +68,7 @@ class CSVTest {
         assertEquals(150, table.getRowCount());
 
         // assert that the headers are correctly read
-        assertEquals(List.of("sepal length","sepal width","petal length","petal width", "class"), table.getHeaders());
+        assertEquals(List.of("sepal length","sepal width","petal length","petal width"), table.getHeaders());
         // assert that the first and last row are correctly read
         assertEquals(List.of(5.1,3.5,1.4,0.2), table.getRowAt(0).getData());
         assertEquals("Iris-setosa", table.getRowAt(0).getLabel());
