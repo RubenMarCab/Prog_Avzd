@@ -1,5 +1,7 @@
 package es.uji.martinez.Programacion_Avanzada.Practica1;
-import java.util.*;
+
+import java.util.List;
+
 public class RowWithLabel extends Row {
     private String label;
 

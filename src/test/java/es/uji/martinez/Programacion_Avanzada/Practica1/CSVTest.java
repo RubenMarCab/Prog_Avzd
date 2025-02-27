@@ -2,9 +2,6 @@
 package es.uji.martinez.Programacion_Avanzada.Practica1;
 
 // TODO: Reemplazar por los imports de tu proyecto
-import es.uji.scastele.csv.CSV;
-import es.uji.martinez.Programacion_Avanzada.Practica1.Table;
-import es.uji.martinez.Programacion_Avanzada.Practica1.TableWithLabels;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -71,7 +68,7 @@ class CSVTest {
         assertEquals(150, table.getRowCount());
 
         // assert that the headers are correctly read
-        assertEquals(List.of("sepal length","sepal width","petal length","petal width"), table.getHeaders());
+        assertEquals(List.of("sepal length","sepal width","petal length","petal width", "class"), table.getHeaders());
         // assert that the first and last row are correctly read
         assertEquals(List.of(5.1,3.5,1.4,0.2), table.getRowAt(0).getData());
         assertEquals("Iris-setosa", table.getRowAt(0).getLabel());

@@ -1,14 +1,25 @@
 package es.uji.martinez.Programacion_Avanzada.Practica1;
 
-import java.util.*;
+import java.util.List;
 
 public class Table {
-    protected List<String> headers;
-    protected List<Row> rows;
+    private List<String> headers;
+    private List<Row> rows;
 
-    public Table(List<String> headers) {
+    public Table(List<String> headers, List<Row> rows) {
         this.headers = headers;
-        this.rows = new ArrayList<>();
+        this.rows = rows;
+    }
+
+    public Table() {
+    }
+
+    public List<String> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(List<String> headers) {
+        this.headers = headers;
     }
 
     public void addRow(Row row) {
@@ -19,19 +30,11 @@ public class Table {
         return rows.get(index);
     }
 
-    public List<Double> getColumnAt(int index) {
-        List<Double> column = new ArrayList<>();
-        for (Row row : rows) {
-            column.add(row.getData().get(index));
-        }
-        return column;
+    public int getRowCount() {
+        return rows.size();
     }
 
-    public void printTable() {
-        System.out.println(headers);
-        for (Row row : rows) {
-            System.out.println(row.getData());
-        }
+    public List<Double> getColumnAt(int index) {
+        return rows.stream().map(row -> row.getData().get(index)).toList();
     }
 }
-

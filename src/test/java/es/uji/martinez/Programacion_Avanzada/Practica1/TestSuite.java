@@ -1,4 +1,4 @@
-package es.uji.scastele.testsuite;
+package es.uji.martinez.Programacion_Avanzada.Practica1;
 
 import org.junit.platform.suite.api.IncludeClassNamePatterns;
 import org.junit.platform.suite.api.SelectPackages;

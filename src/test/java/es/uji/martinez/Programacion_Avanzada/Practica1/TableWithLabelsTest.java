@@ -1,8 +1,7 @@
 // TODO: Reemplazar por el nombre de tu paquete
-package es.uji.scastele.table;
+package es.uji.martinez.Programacion_Avanzada.Practica1;
 
 // TODO: Reemplazar por los imports de tu proyecto
-import es.uji.scastele.table.*;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,45 +1,54 @@
 package es.uji.martinez.Programacion_Avanzada.Practica1;
+
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CSV {
-    public static Table readTable(String filename) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(filename));
+
+    public Table readTable(String filename) throws IOException {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
+        if (inputStream == null) {
+            throw new FileNotFoundException("No se pudo encontrar el archivo: " + filename);
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+
         String line;
-        
-        List<String> headers = Arrays.asList(br.readLine().split(","));
-        Table table = new Table(headers);
-        
+        List<String> headers = List.of(br.readLine().split(","));
+        List<Row> rows = new ArrayList<>();
+
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
-            List<Double> data = new ArrayList<>();
+            List<Double> rowData = new ArrayList<>();
             for (String value : values) {
-                data.add(Double.parseDouble(value));
+                rowData.add(Double.parseDouble(value));
             }
-            table.addRow(new Row(data));
+            rows.add(new Row(rowData));
         }
         br.close();
-        return table;
+        return new Table(headers, rows);
     }
 
-    public static TableWithLabels readTableWithLabels(String filename) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(filename));
+    public TableWithLabels readTableWithLabels(String filename) throws IOException {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
+        if (inputStream == null) {
+            throw new FileNotFoundException("No se pudo encontrar el archivo: " + filename);
+        }
+        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+
         String line;
-        
-        List<String> headers = Arrays.asList(br.readLine().split(","));
-        TableWithLabels table = new TableWithLabels(headers);
-        
+        List<String> headers = List.of(br.readLine().split(","));
+        List<RowWithLabel> rows = new ArrayList<>();
+
         while ((line = br.readLine()) != null) {
             String[] values = line.split(",");
-            List<Double> data = new ArrayList<>();
+            List<Double> rowData = new ArrayList<>();
             for (int i = 0; i < values.length - 1; i++) {
-                data.add(Double.parseDouble(values[i]));
+                rowData.add(Double.parseDouble(values[i]));
             }
-            String label = values[values.length - 1];
-            table.addRow(new RowWithLabel(data, label));
+            rows.add(new RowWithLabel(rowData, values[values.length - 1]));
         }
         br.close();
-        return table;
+        return new TableWithLabels(headers, rows);
     }
-}   
-
+}
