@@ -5,26 +5,40 @@ import java.util.List;
 import java.util.Map;
 
 public class TableWithLabels extends Table {
-    private Map<String, Integer> labelsToInt = new HashMap<>();
+    private Map<String, Integer> labelsMap;
 
-    public TableWithLabels(List<String> headers, List<RowWithLabel> rows) {
-        super(headers, List.copyOf(rows));
-        int labelIndex = 0;
-        for (RowWithLabel row : rows) {
-            labelsToInt.putIfAbsent(row.getLabel(), labelIndex++);
-        }
-    }
-
+    // Constructor predeterminado
     public TableWithLabels() {
         super();
+        this.labelsMap = new HashMap<>();
+        initializeLabelsMap();
     }
 
-    @Override
-    public RowWithLabel getRowAt(int index) {
-        return (RowWithLabel) super.getRowAt(index);
+    // Constructor con parámetros (headers y filas)
+    public TableWithLabels(List<String> headers, List<RowWithLabel> rows) {
+        super(headers, (List<Row>) (List<?>) rows); // Cast explícito
+        this.labelsMap = new HashMap<>();
+        initializeLabelsMap();
     }
 
     public Integer getLabelAsInteger(String label) {
-        return labelsToInt.get(label);
+        return labelsMap.getOrDefault(label, -1); // Devolver -1 si no se encuentra la etiqueta
+    }
+
+    private void initializeLabelsMap() {
+        labelsMap.put("Iris-setosa", 0);
+        labelsMap.put("Iris-versicolor", 1);
+        labelsMap.put("Iris-virginica", 2);
+    }
+
+    // Sobrescribir addRow para trabajar con RowWithLabel
+    public void addRow(RowWithLabel row) {
+        super.addRow(row); // Usa el método de la clase base para añadir la fila
+    }
+
+    // Sobrescribir getRowAt para devolver RowWithLabel
+    @Override
+    public RowWithLabel getRowAt(int index) {
+        return (RowWithLabel) super.getRowAt(index);
     }
 }

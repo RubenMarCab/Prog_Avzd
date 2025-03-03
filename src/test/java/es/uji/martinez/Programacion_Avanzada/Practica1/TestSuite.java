@@ -9,7 +9,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
 @Suite
 @SuiteDisplayName("Lanzar todos los tests")
-@SelectPackages({"es.uji.scastele.machinelearning", "es.uji.scastele.csv", "es.uji.scastele.table"})
+@SelectPackages({"es.uji.martinez.Programacion_Avanzada.Practica1", "es.uji.martinez.Programacion_Avanzada.Practica1.csv", "es.uji.martinez.Programacion_Avanzada.Practica1.table"})
 @IncludeClassNamePatterns(".*Test")
 public class TestSuite {
 }

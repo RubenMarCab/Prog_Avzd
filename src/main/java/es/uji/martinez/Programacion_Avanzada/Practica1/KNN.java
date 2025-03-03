@@ -14,7 +14,7 @@ public class KNN {
         Integer predictedLabel = null;
 
         for (int i = 0; i < trainingData.getRowCount(); i++) {
-            RowWithLabel row = trainingData.getRowAt(i);
+            RowWithLabel row = (RowWithLabel) trainingData.getRowAt(i);
             double distance = euclideanDistance(sample, row.getData());
 
             if (distance < minDistance) {

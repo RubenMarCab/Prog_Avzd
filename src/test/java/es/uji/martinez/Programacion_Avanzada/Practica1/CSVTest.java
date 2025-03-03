@@ -2,6 +2,9 @@
 package es.uji.martinez.Programacion_Avanzada.Practica1;
 
 // TODO: Reemplazar por los imports de tu proyecto
+import es.uji.martinez.Programacion_Avanzada.Practica1.CSV;
+import es.uji.martinez.Programacion_Avanzada.Practica1.Table;
+import es.uji.martinez.Programacion_Avanzada.Practica1.TableWithLabels;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,7 +59,7 @@ class CSVTest {
     @Test
     @DisplayName("CSV - readTableWithLabels")
 // TODO: En caso de manejar la excepción en CSV, puedes eliminar la declaración "throws" aquí
-    void readTableWithLabels()  throws IOException {
+    void readTableWithLabels() throws IOException {
         TableWithLabels table = csv.readTableWithLabels(irisFile);
 
         // assert that the table is not null
