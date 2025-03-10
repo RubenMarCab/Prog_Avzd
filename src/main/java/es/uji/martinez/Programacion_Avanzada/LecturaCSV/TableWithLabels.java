@@ -1,34 +1,30 @@
-package es.uji.martinez.Programacion_Avanzada.Practica1;
+package es.uji.martinez.Programacion_Avanzada.LecturaCSV;
+
+import es.uji.martinez.Programacion_Avanzada.LecturaCSV.Row;
+import es.uji.martinez.Programacion_Avanzada.LecturaCSV.RowWithLabel;
+import es.uji.martinez.Programacion_Avanzada.LecturaCSV.Table;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class TableWithLabels extends Table {
-    private Map<String, Integer> labelsMap;
+    protected Map<String, Integer> labelsMap;
 
     // Constructor predeterminado
     public TableWithLabels() {
         super();
         this.labelsMap = new HashMap<>();
-        initializeLabelsMap();
     }
 
     // Constructor con parámetros (headers y filas)
     public TableWithLabels(List<String> headers, List<RowWithLabel> rows) {
         super(headers, (List<Row>) (List<?>) rows); // Cast explícito
         this.labelsMap = new HashMap<>();
-        initializeLabelsMap();
     }
 
     public Integer getLabelAsInteger(String label) {
-        return labelsMap.getOrDefault(label, -1); // Devolver -1 si no se encuentra la etiqueta
-    }
-
-    private void initializeLabelsMap() {
-        labelsMap.put("Iris-setosa", 0);
-        labelsMap.put("Iris-versicolor", 1);
-        labelsMap.put("Iris-virginica", 2);
+        return labelsMap.computeIfAbsent(label, k -> labelsMap.size());
     }
 
     // Sobrescribir addRow para trabajar con RowWithLabel

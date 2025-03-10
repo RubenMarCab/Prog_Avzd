@@ -2,9 +2,9 @@
 package es.uji.martinez.Programacion_Avanzada.Practica1;
 
 // TODO: Reemplazar por los imports de tu proyecto
-import es.uji.martinez.Programacion_Avanzada.Practica1.CSV;
-import es.uji.martinez.Programacion_Avanzada.Practica1.Table;
-import es.uji.martinez.Programacion_Avanzada.Practica1.TableWithLabels;
+import es.uji.martinez.Programacion_Avanzada.LecturaCSV.CSV;
+import es.uji.martinez.Programacion_Avanzada.LecturaCSV.Table;
+import es.uji.martinez.Programacion_Avanzada.LecturaCSV.TableWithLabels;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
