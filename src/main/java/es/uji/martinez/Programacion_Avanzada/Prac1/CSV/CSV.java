@@ -1,5 +1,9 @@
-package es.uji.martinez.Programacion_Avanzada.csv;
-import es.uji.martinez.Programacion_Avanzada.TABLE.*;
+package es.uji.martinez.Programacion_Avanzada.Prac1.CSV;
+import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.Row;
+import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.RowWithLabel;
+import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.Table;
+import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.TableWithLabels;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

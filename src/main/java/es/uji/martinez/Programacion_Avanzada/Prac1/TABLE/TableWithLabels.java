@@ -1,8 +1,4 @@
-package es.uji.martinez.Programacion_Avanzada.TABLE;
-
-import es.uji.martinez.Programacion_Avanzada.TABLE.Row;
-import es.uji.martinez.Programacion_Avanzada.TABLE.RowWithLabel;
-import es.uji.martinez.Programacion_Avanzada.TABLE.Table;
+package es.uji.martinez.Programacion_Avanzada.Prac1.TABLE;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,10 +1,10 @@
 // TODO: Reemplazar por el nombre de tu paquete
-package es.uji.martinez.Programacion_Avanzada;
+package es.uji.martinez.Programacion_Avanzada.Prac1;
 
 // TODO: Reemplazar por los imports de tu proyecto
-import es.uji.martinez.Programacion_Avanzada.csv.CSV;
-import es.uji.martinez.Programacion_Avanzada.knn.KNN;
-import es.uji.martinez.Programacion_Avanzada.TABLE.TableWithLabels;
+import es.uji.martinez.Programacion_Avanzada.Prac1.CSV.CSV;
+import es.uji.martinez.Programacion_Avanzada.Prac1.KNN.KNN;
+import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.TableWithLabels;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

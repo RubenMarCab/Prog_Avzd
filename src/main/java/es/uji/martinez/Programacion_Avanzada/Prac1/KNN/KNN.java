@@ -1,7 +1,7 @@
-package es.uji.martinez.Programacion_Avanzada.knn;
+package es.uji.martinez.Programacion_Avanzada.Prac1.KNN;
 
-import es.uji.martinez.Programacion_Avanzada.TABLE.RowWithLabel;
-import es.uji.martinez.Programacion_Avanzada.TABLE.TableWithLabels;
+import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.RowWithLabel;
+import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.TableWithLabels;
 
 import java.util.List;
 

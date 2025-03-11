@@ -1,9 +1,9 @@
 // TODO: Reemplazar por el nombre de tu paquete
-package es.uji.martinez.Programacion_Avanzada;
+package es.uji.martinez.Programacion_Avanzada.Prac1;
 
 // TODO: Reemplazar por los imports de tu proyecto
-import es.uji.martinez.Programacion_Avanzada.TABLE.Row;
-import es.uji.martinez.Programacion_Avanzada.TABLE.Table;
+import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.Row;
+import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.Table;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

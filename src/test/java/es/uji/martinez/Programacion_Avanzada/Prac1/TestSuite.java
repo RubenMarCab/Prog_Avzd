@@ -1,4 +1,4 @@
-package es.uji.martinez.Programacion_Avanzada;
+package es.uji.martinez.Programacion_Avanzada.Prac1;
 
 import org.junit.platform.suite.api.IncludeClassNamePatterns;
 import org.junit.platform.suite.api.SelectPackages;

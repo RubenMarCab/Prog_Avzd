@@ -1,6 +1,4 @@
-package es.uji.martinez.Programacion_Avanzada.TABLE;
-
-import es.uji.martinez.Programacion_Avanzada.TABLE.Row;
+package es.uji.martinez.Programacion_Avanzada.Prac1.TABLE;
 
 import java.util.List;
 

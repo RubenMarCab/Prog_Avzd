@@ -1,4 +1,4 @@
-package es.uji.martinez.Programacion_Avanzada.TABLE;
+package es.uji.martinez.Programacion_Avanzada.Prac1.TABLE;
 
 import java.util.List;
 
