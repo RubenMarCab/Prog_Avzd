@@ -1,7 +1,7 @@
-package es.uji.martinez.Programacion_Avanzada.Prac1.KNN;
+package es.uji.martinez.Programacion_Avanzada.Prac1.Algoritmos.KNN;
 
-import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.RowWithLabel;
-import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.TableWithLabels;
+import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.RowWithLabel;
+import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.TableWithLabels;
 
 import java.util.List;
 

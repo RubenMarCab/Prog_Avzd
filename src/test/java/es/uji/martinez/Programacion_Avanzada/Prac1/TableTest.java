@@ -2,8 +2,8 @@
 package es.uji.martinez.Programacion_Avanzada.Prac1;
 
 // TODO: Reemplazar por los imports de tu proyecto
-import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.Row;
-import es.uji.martinez.Programacion_Avanzada.Prac1.TABLE.Table;
+import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.Row;
+import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.Table;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

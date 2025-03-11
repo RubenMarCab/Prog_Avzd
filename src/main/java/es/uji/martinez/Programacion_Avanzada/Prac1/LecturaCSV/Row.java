@@ -1,4 +1,4 @@
-package es.uji.martinez.Programacion_Avanzada.Prac1.TABLE;
+package es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV;
 
 import java.util.List;
 

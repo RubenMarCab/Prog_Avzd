@@ -1,4 +1,8 @@
-package es.uji.martinez.Programacion_Avanzada.Prac1.TABLE;
+package es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV;
+
+import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.Row;
+import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.RowWithLabel;
+import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.Table;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +26,6 @@ public class TableWithLabels extends Table {
     public Integer getLabelAsInteger(String label) {
         return labelsMap.computeIfAbsent(label, k -> labelsMap.size());
     }
-
     // Sobrescribir addRow para trabajar con RowWithLabel
     public void addRow(RowWithLabel row) {
         super.addRow(row); // Usa el método de la clase base para añadir la fila
