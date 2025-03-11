@@ -1,35 +1,50 @@
 package es.uji.EI1017.Programacion_Avanzada.RecSys;
 
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
+import es.uji.EI1017.Programacion_Avanzada.Excepciones.LikedItemNotFoundException;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 public class RecSys {
-    private Algorithm<List<List<Double>>, Integer> algorithm;
+    private Algorithm<Table, Integer> algorithm;
     private List<String> testItemNames;
-    private List<Integer> estimatedClusters;
+    private Map<String, Integer> estimatedClasses;
 
-    public RecSys(Algorithm<List<List<Double>>, Integer> algorithm) {
+    public RecSys(Algorithm<Table, Integer> algorithm) {
         this.algorithm = algorithm;
         this.testItemNames = new ArrayList<>();
-        this.estimatedClusters = new ArrayList<>();
+        this.estimatedClasses = new HashMap<>();
     }
 
-    public void train(List<List<Double>> trainData) {
+    public void train(Table trainData) {
         algorithm.train(trainData);
     }
 
-    public void initialise(List<List<Double>> testData, List<String> testItemNames) {
+    public void initialise(Table testData, List<String> testItemNames) {
         this.testItemNames = testItemNames;
-        this.estimatedClusters.clear();
-        for (List<Double> data : testData) {
-            estimatedClusters.add(algorithm.estimate(data));
+        estimatedClasses.clear();
+
+        for (int i = 0; i < testData.getRowCount(); i++) {
+            Integer classLabel = algorithm.estimate(testData.getRowAt(i).getData());
+            estimatedClasses.put(testItemNames.get(i), classLabel);
         }
     }
 
-    public List<String> recommend(String nameLikedItem, int numRecommendations) {
-        return new ArrayList<>(); // Implementar lógica de recomendación
+    public List<String> recommend(String nameLikedItem, int numRecommendations) throws LikedItemNotFoundException {
+        if (!estimatedClasses.containsKey(nameLikedItem)) {
+            throw new LikedItemNotFoundException(nameLikedItem);
+        }
+
+        int targetClass = estimatedClasses.get(nameLikedItem);
+        List<String> recommendations = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> entry : estimatedClasses.entrySet()) {
+            if (!entry.getKey().equals(nameLikedItem) && entry.getValue() == targetClass) {
+                recommendations.add(entry.getKey());
+            }
+        }
+
+        return recommendations.subList(0, Math.min(numRecommendations, recommendations.size()));
     }
 }
-

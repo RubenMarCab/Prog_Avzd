@@ -6,8 +6,11 @@ package es.uji.EI1017.Programacion_Avanzada;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KMeans.KMeans;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KNN.KNN;
+import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
+import es.uji.EI1017.Programacion_Avanzada.Excepciones.LikedItemNotFoundException;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
+import es.uji.EI1017.Programacion_Avanzada.RecSys.RecSys;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
@@ -93,7 +96,7 @@ class RecSysTest {
 
         @BeforeEach
         // TODO: añadir o eliminar excepciones según tu implementación
-        void setUp() throws IOException, URISyntaxException {
+        void setUp() throws IOException, URISyntaxException, InvalidClusterNumberException {
             trainTable = new CSV().readTableWithLabels(songsFolder + separator + "songs_train_withoutnames.csv");
             testTable = new CSV().readTableWithLabels(songsFolder + separator + "songs_test_withoutnames.csv");
             testItemNames = readNames(songsFolder + separator + "songs_test_names.csv");

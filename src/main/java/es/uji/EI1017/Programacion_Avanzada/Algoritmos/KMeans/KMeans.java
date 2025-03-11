@@ -1,93 +1,89 @@
 package es.uji.EI1017.Programacion_Avanzada.Algoritmos.KMeans;
 
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
+import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
+
 import java.util.*;
 
-public class KMeans {
+public class KMeans implements Algorithm<Table, Integer> {
     private int numClusters;
     private int numIterations;
-    private Random random;
+    private long seed;
     private List<List<Double>> centroids;
 
-    public KMeans(int numClusters, int numIterations, long seed) {
+    public KMeans(int numClusters, int numIterations, long seed) throws InvalidClusterNumberException {
+        if (numClusters <= 0) {
+            throw new InvalidClusterNumberException(numClusters, 0);
+        }
         this.numClusters = numClusters;
         this.numIterations = numIterations;
-        this.random = new Random(seed);
+        this.seed = seed;
         this.centroids = new ArrayList<>();
     }
 
-    public void train(List<List<Double>> data) {
-        initializeCentroids(data);
+    @Override
+    public void train(Table datos) {
+        Random random = new Random(seed);
+        Set<Integer> selectedIndexes = new HashSet<>();
+        while (selectedIndexes.size() < numClusters) {
+            selectedIndexes.add(random.nextInt(datos.getRowCount()));
+        }
+
+        centroids.clear();
+        for (int index : selectedIndexes) {
+            centroids.add(new ArrayList<>(datos.getRowAt(index).getData()));
+        }
 
         for (int i = 0; i < numIterations; i++) {
-            Map<Integer, List<List<Double>>> clusters = assignClusters(data);
-            updateCentroids(clusters);
+            List<List<Double>> newCentroids = new ArrayList<>(Collections.nCopies(numClusters, new ArrayList<>()));
+
+            for (int j = 0; j < numClusters; j++) {
+                newCentroids.set(j, new ArrayList<>(Collections.nCopies(centroids.get(0).size(), 0.0)));
+            }
+
+            int[] clusterSizes = new int[numClusters];
+
+            for (int r = 0; r < datos.getRowCount(); r++) {
+                List<Double> row = datos.getRowAt(r).getData();
+                int clusterIndex = estimate(row);
+
+                for (int d = 0; d < row.size(); d++) {
+                    newCentroids.get(clusterIndex).set(d, newCentroids.get(clusterIndex).get(d) + row.get(d));
+                }
+                clusterSizes[clusterIndex]++;
+            }
+
+            for (int j = 0; j < numClusters; j++) {
+                if (clusterSizes[j] > 0) {
+                    for (int d = 0; d < newCentroids.get(j).size(); d++) {
+                        newCentroids.get(j).set(d, newCentroids.get(j).get(d) / clusterSizes[j]);
+                    }
+                }
+            }
+
+            centroids = newCentroids;
         }
     }
 
-    public int estimate(List<Double> point) {
-        return findClosestCentroid(point);
-    }
-
-    private void initializeCentroids(List<List<Double>> data) {
-        Collections.shuffle(data, random);
-        centroids.clear();
-        for (int i = 0; i < numClusters; i++) {
-            centroids.add(new ArrayList<>(data.get(i)));
-        }
-    }
-
-    private Map<Integer, List<List<Double>>> assignClusters(List<List<Double>> data) {
-        Map<Integer, List<List<Double>>> clusters = new HashMap<>();
-        for (int i = 0; i < numClusters; i++) {
-            clusters.put(i, new ArrayList<>());
-        }
-        for (List<Double> point : data) {
-            int clusterIndex = findClosestCentroid(point);
-            clusters.get(clusterIndex).add(point);
-        }
-        return clusters;
-    }
-
-    private int findClosestCentroid(List<Double> point) {
-        int closestIndex = 0;
+    @Override
+    public Integer estimate(List<Double> dato) {
+        int bestCluster = 0;
         double minDistance = Double.MAX_VALUE;
+
         for (int i = 0; i < centroids.size(); i++) {
-            double distance = euclideanDistance(point, centroids.get(i));
+            double distance = 0;
+            for (int d = 0; d < dato.size(); d++) {
+                distance += Math.pow(dato.get(d) - centroids.get(i).get(d), 2);
+            }
+            distance = Math.sqrt(distance);
+
             if (distance < minDistance) {
                 minDistance = distance;
-                closestIndex = i;
+                bestCluster = i;
             }
         }
-        return closestIndex;
-    }
 
-    private void updateCentroids(Map<Integer, List<List<Double>>> clusters) {
-        for (int i = 0; i < numClusters; i++) {
-            if (!clusters.get(i).isEmpty()) {
-                centroids.set(i, calculateCentroid(clusters.get(i)));
-            }
-        }
-    }
-
-    private List<Double> calculateCentroid(List<List<Double>> cluster) {
-        int dimensions = cluster.get(0).size();
-        List<Double> centroid = new ArrayList<>(Collections.nCopies(dimensions, 0.0));
-        for (List<Double> point : cluster) {
-            for (int j = 0; j < dimensions; j++) {
-                centroid.set(j, centroid.get(j) + point.get(j));
-            }
-        }
-        for (int j = 0; j < dimensions; j++) {
-            centroid.set(j, centroid.get(j) / cluster.size());
-        }
-        return centroid;
-    }
-
-    private double euclideanDistance(List<Double> p1, List<Double> p2) {
-        double sum = 0.0;
-        for (int i = 0; i < p1.size(); i++) {
-            sum += Math.pow(p1.get(i) - p2.get(i), 2);
-        }
-        return Math.sqrt(sum);
+        return bestCluster;
     }
 }
