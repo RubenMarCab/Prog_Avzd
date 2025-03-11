@@ -1,9 +1,13 @@
 // TODO: Remplazar <nombre> por el nombre de tu paquete
-package es.uji.martinez.Programacion_Avanzada.Prac1;
+package es.uji.EI1017.Programacion_Avanzada.RecSys;
 
 // TODO: Pon los imports especificos a tu proyecto
 
-import es.uji.martinez.Programacion_Avanzada.Prac1.Algoritmos.KMeans.KMeans;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KMeans.KMeans;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KNN.KNN;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
 import org.junit.jupiter.api.*;
 
 import java.io.File;

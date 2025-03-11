@@ -1,11 +1,11 @@
 // TODO: Remplazar <nombre> por el nombre de tu paquete
-package es.uji.martinez.Programacion_Avanzada.Prac1;
+package es.uji.EI1017.Programacion_Avanzada.RecSys;
 
 // TODO: Pon los imports especificos a tu proyecto
 
-import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.CSV;
-import es.uji.martinez.Programacion_Avanzada.Prac1.Algoritmos.KMeans.KMeans;
-import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.TableWithLabels;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KMeans.KMeans;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.TableWithLabels;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

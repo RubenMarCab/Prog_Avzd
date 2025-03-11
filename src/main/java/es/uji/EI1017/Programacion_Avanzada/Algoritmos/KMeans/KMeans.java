@@ -1,4 +1,4 @@
-package es.uji.martinez.Programacion_Avanzada.Prac1.Algoritmos.KMeans;
+package es.uji.EI1017.Programacion_Avanzada.Algoritmos.KMeans;
 
 import java.util.*;
 

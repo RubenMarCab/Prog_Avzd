@@ -1,6 +1,6 @@
-package es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV;
+package es.uji.EI1017.Programacion_Avanzada.LecturaCSV;
 
-import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.Row;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Row;
 
 import java.util.List;
 

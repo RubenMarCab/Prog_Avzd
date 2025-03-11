@@ -1,8 +1,4 @@
-package es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV;
-
-import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.Row;
-import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.RowWithLabel;
-import es.uji.martinez.Programacion_Avanzada.Prac1.LecturaCSV.Table;
+package es.uji.EI1017.Programacion_Avanzada.LecturaCSV;
 
 import java.util.HashMap;
 import java.util.List;

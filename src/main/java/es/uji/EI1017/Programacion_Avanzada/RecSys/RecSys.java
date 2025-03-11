@@ -1,6 +1,6 @@
-package es.uji.martinez.Programacion_Avanzada.Prac1.RecSys;
+package es.uji.EI1017.Programacion_Avanzada.RecSys;
 
-import es.uji.martinez.Programacion_Avanzada.Prac1.Algoritmos.Algorithm;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
 
 import java.util.List;
 import java.util.ArrayList;
