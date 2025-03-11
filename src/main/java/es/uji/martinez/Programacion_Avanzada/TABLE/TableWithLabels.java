@@ -1,8 +1,8 @@
-package es.uji.martinez.Programacion_Avanzada.LecturaCSV;
+package es.uji.martinez.Programacion_Avanzada.TABLE;
 
-import es.uji.martinez.Programacion_Avanzada.LecturaCSV.Row;
-import es.uji.martinez.Programacion_Avanzada.LecturaCSV.RowWithLabel;
-import es.uji.martinez.Programacion_Avanzada.LecturaCSV.Table;
+import es.uji.martinez.Programacion_Avanzada.TABLE.Row;
+import es.uji.martinez.Programacion_Avanzada.TABLE.RowWithLabel;
+import es.uji.martinez.Programacion_Avanzada.TABLE.Table;
 
 import java.util.HashMap;
 import java.util.List;

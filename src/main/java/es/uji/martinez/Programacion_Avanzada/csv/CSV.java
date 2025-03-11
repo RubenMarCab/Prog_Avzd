@@ -1,5 +1,5 @@
-package es.uji.martinez.Programacion_Avanzada.LecturaCSV;
-
+package es.uji.martinez.Programacion_Avanzada.csv;
+import es.uji.martinez.Programacion_Avanzada.TABLE.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

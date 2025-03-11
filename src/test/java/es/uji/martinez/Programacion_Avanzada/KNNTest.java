@@ -2,8 +2,8 @@
 package es.uji.martinez.Programacion_Avanzada;
 
 // TODO: Reemplazar por los imports de tu proyecto
-import es.uji.martinez.Programacion_Avanzada.CSV.CSV;
-import es.uji.martinez.Programacion_Avanzada.KNN.KNN;
+import es.uji.martinez.Programacion_Avanzada.csv.CSV;
+import es.uji.martinez.Programacion_Avanzada.knn.KNN;
 import es.uji.martinez.Programacion_Avanzada.TABLE.TableWithLabels;
 
 import org.junit.jupiter.api.AfterEach;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class KNNTest {
 
