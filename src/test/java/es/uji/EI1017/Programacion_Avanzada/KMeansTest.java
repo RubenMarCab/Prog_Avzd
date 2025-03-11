@@ -1,5 +1,5 @@
 // TODO: Remplazar <nombre> por el nombre de tu paquete
-package es.uji.EI1017.Programacion_Avanzada.RecSys;
+package es.uji.EI1017.Programacion_Avanzada;
 
 // TODO: Pon los imports especificos a tu proyecto
 
