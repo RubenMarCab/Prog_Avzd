@@ -23,7 +23,10 @@ public class KMeans implements Algorithm<Table, Integer> {
     }
 
     @Override
-    public void train(Table datos) {
+    public void train(Table datos) throws InvalidClusterNumberException {
+        if (numClusters > datos.getRowCount()) {
+            throw new InvalidClusterNumberException(numClusters, datos.getRowCount());
+        }
         Random random = new Random(seed);
         Set<Integer> selectedIndexes = new HashSet<>();
         while (selectedIndexes.size() < numClusters) {

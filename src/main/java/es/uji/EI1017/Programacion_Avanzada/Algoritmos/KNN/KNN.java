@@ -1,11 +1,12 @@
 package es.uji.EI1017.Programacion_Avanzada.Algoritmos.KNN;
 
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.RowWithLabel;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.TableWithLabels;
 
 import java.util.List;
 
-public class KNN {
+public class KNN implements Algorithm<TableWithLabels, Integer> {
     private TableWithLabels trainingData;
 
     public void train(TableWithLabels table) {

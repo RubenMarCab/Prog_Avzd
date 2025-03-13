@@ -1,6 +1,7 @@
 package es.uji.EI1017.Programacion_Avanzada.RecSys;
 
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
+import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
 import es.uji.EI1017.Programacion_Avanzada.Excepciones.LikedItemNotFoundException;
 
@@ -17,7 +18,7 @@ public class RecSys {
         this.estimatedClasses = new HashMap<>();
     }
 
-    public void train(Table trainData) {
+    public void train(Table trainData) throws InvalidClusterNumberException {
         algorithm.train(trainData);
     }
 
