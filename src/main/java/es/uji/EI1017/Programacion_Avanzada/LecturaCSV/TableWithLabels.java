@@ -25,7 +25,10 @@ public class TableWithLabels extends Table {
     // Sobrescribir addRow para trabajar con RowWithLabel
     public void addRow(RowWithLabel row) {
         super.addRow(row); // Usa el método de la clase base para añadir la fila
+        String label = row.getLabel();
+        getLabelAsInteger(label);
     }
+
 
     // Sobrescribir getRowAt para devolver RowWithLabel
     @Override
