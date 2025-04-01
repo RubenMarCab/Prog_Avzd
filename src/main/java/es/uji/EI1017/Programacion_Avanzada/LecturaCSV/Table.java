@@ -41,7 +41,7 @@ public class Table {
         return rows.stream().map(row -> row.getData().get(index)).toList();
     }
 
-    // Método para agregar una fila
+    // Método para añadir una fila
     public void addRow(Row row) {
         rows.add(row);
     }

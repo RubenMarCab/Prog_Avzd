@@ -1,6 +1,7 @@
 package es.uji.EI1017.Programacion_Avanzada.Algoritmos.KNN;
 
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Distance;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.RowWithLabel;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.TableWithLabels;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 public class KNN implements Algorithm<TableWithLabels, Integer> {
     private TableWithLabels trainingData;
+    private Distance distance;
 
     public void train(TableWithLabels table) {
         this.trainingData = table;

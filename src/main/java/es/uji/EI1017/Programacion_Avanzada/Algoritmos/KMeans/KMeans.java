@@ -1,6 +1,7 @@
 package es.uji.EI1017.Programacion_Avanzada.Algoritmos.KMeans;
 
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Distance;
 import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
 
@@ -11,6 +12,7 @@ public class KMeans implements Algorithm<Table, Integer> {
     private int numIterations;
     private long seed;
     private List<List<Double>> centroids;
+    private Distance distance;
 
     public KMeans(int numClusters, int numIterations, long seed) throws InvalidClusterNumberException {
         if (numClusters <= 0) {
