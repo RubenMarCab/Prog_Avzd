@@ -10,6 +10,17 @@ import java.util.List;
 public class KNN implements Algorithm<TableWithLabels, Integer> {
     private TableWithLabels trainingData;
     private Distance distance;
+    private int k;
+
+    // Constructor modificado para inyectar la estrategia de distancia
+    public KNN(int k, Distance distance) {
+        this.k = k;
+        this.distance = distance;
+    }
+
+    public double calculateDistance(List<Double> p, List<Double> q) {
+        return distance.calculateDistance(p, q);
+    }
 
     public void train(TableWithLabels table) {
         this.trainingData = table;

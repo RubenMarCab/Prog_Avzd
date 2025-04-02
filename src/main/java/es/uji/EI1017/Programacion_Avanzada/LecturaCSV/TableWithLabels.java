@@ -1,16 +1,19 @@
 package es.uji.EI1017.Programacion_Avanzada.LecturaCSV;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class TableWithLabels extends Table {
     protected Map<String, Integer> labelsMap;
+    private List<String> labels;
 
     // Constructor predeterminado
     public TableWithLabels() {
         super();
         this.labelsMap = new HashMap<>();
+        labels = new ArrayList<>();
     }
 
     // Constructor con parámetros (headers y filas)
@@ -28,7 +31,12 @@ public class TableWithLabels extends Table {
         String label = row.getLabel();
         getLabelAsInteger(label);
     }
-
+    public void addLabel(String label) {
+        labels.add(label);
+    }
+    public List<String> getLabels() {
+        return labels;
+    }
 
     // Sobrescribir getRowAt para devolver RowWithLabel
     @Override

@@ -1,8 +1,10 @@
 // TODO: Remplazar <nombre> por el nombre de tu paquete
-package <nombre>;
+package es.uji.EI1017.Programacion_Avanzada;
 
 // TODO: Pon los imports especificos a tu proyecto
 
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.CSVLabeledFileReader;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.TableWithLabels;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

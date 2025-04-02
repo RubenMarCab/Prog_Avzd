@@ -12,7 +12,19 @@ public class KMeans implements Algorithm<Table, Integer> {
     private int numIterations;
     private long seed;
     private List<List<Double>> centroids;
+    private int k;
     private Distance distance;
+
+    // Constructor modificado para inyectar la estrategia de distancia
+    public KMeans(int k, Distance distance) {
+        this.k = k;
+        this.distance = distance;
+    }
+
+    // Delegación del cálculo de la distancia
+    public double calculateDistance(List<Double> p, List<Double> q) {
+        return distance.calculateDistance(p, q);
+    }
 
     public KMeans(int numClusters, int numIterations, long seed) throws InvalidClusterNumberException {
         if (numClusters <= 0) {
