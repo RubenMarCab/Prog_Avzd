@@ -9,7 +9,7 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
 @Suite
 @SuiteDisplayName("Lanzar todos los tests")
-@SelectPackages({"es.uji.EI1017.Programacion_Avanzada", "es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV", "es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table"})
+@SelectPackages({"es.uji.EI1017.Programacion_Avanzada", "es.uji.EI1017.Programacion_Avanzada.Excluidos.CSV", "es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table"})
 @IncludeClassNamePatterns(".*Test")
 public class TestSuite {
 }

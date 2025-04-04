@@ -2,8 +2,11 @@
 package es.uji.EI1017.Programacion_Avanzada;
 
 // TODO: Reemplazar por los imports de tu proyecto
-import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV;
+//import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Distance;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.EuclideanDistance;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KNN.KNN;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSVLabeledFileReader;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.TableWithLabels;
 
 import org.junit.jupiter.api.AfterEach;
@@ -25,8 +28,10 @@ class KNNTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        TableWithLabels iris = new CSV().readTableWithLabels("iris.csv");
-        knn = new KNN();
+        CSVLabeledFileReader reader = new CSVLabeledFileReader();
+        TableWithLabels iris = reader.readTableFromSource("src/test/resources/iris.csv");
+        Distance distance = new EuclideanDistance();
+        knn = new KNN(3, distance); // ahora sí: k = 3 y distancia
         knn.train(iris);
     }
 

@@ -3,6 +3,7 @@ package es.uji.EI1017.Programacion_Avanzada;
 
 // TODO: Pon los imports especificos a tu proyecto
 
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSVUnlabeledFileReader;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,7 @@ class CSVUnlabeledFileReaderTest {
 
     @BeforeEach
     void setUp() {
-        reader = new CSVUnlabeledFileReader("miles_dollars.csv");
+        reader = new CSVUnlabeledFileReader();
     }
 
     @AfterEach
@@ -29,7 +30,7 @@ class CSVUnlabeledFileReaderTest {
     // TODO: Dependiendo de cómo manejas las excepciones, puedes añadir un try/catch o un lanzamiento de excepción aquí.
     @Test
     void readTableFromSource() {
-        Table table = reader.readTableFromSource();
+        Table table = reader.readTableFromSource("src/test/resources/miles_dollars.csv");
 
         // assert that the table is not null
         assertNotNull(table);

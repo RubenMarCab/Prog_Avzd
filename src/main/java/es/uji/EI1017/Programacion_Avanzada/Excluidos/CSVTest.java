@@ -1,8 +1,7 @@
 // TODO: Reemplazar por el nombre de tu paquete
-package es.uji.EI1017.Programacion_Avanzada;
+package es.uji.EI1017.Programacion_Avanzada.Excluidos;
 
 // TODO: Reemplazar por los imports de tu proyecto
-import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.TableWithLabels;
 

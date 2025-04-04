@@ -4,8 +4,9 @@ package es.uji.EI1017.Programacion_Avanzada;
 // TODO: Pon los imports especificos a tu proyecto
 
 import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
-import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV;
+//import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KMeans.KMeans;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSVLabeledFileReader;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.TableWithLabels;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,9 +28,10 @@ class KMeansTest {
     private long seed = 53;
 
     @BeforeEach
-    // TODO: En caso de manejar la excepción IOException en CSV, puedes eliminarla aquí
+        // TODO: En caso de manejar la excepción IOException en CSV, puedes eliminarla aquí
     void setUp() throws IOException, InvalidClusterNumberException {
-        iris = new CSV().readTableWithLabels("iris.csv");
+        CSVLabeledFileReader reader = new CSVLabeledFileReader();
+        iris = reader.readTableFromSource("src/test/resources/iris.csv");
         kMeans = new KMeans(irisClusters, numIterations, seed);
         kMeans.train(iris);
     }

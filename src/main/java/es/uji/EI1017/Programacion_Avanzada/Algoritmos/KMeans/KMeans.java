@@ -89,11 +89,7 @@ public class KMeans implements Algorithm<Table, Integer> {
         double minDistance = Double.MAX_VALUE;
 
         for (int i = 0; i < centroids.size(); i++) {
-            double distance = 0;
-            for (int d = 0; d < dato.size(); d++) {
-                distance += Math.pow(dato.get(d) - centroids.get(i).get(d), 2);
-            }
-            distance = Math.sqrt(distance);
+            double distance = this.distance.calculateDistance(dato, centroids.get(i));
 
             if (distance < minDistance) {
                 minDistance = distance;

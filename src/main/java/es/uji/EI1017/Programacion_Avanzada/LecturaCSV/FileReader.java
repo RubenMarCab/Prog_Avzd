@@ -1,6 +1,5 @@
-package es.uji.EI1017.Programacion_Avanzada.Algoritmos;
+package es.uji.EI1017.Programacion_Avanzada.LecturaCSV;
 
-import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;

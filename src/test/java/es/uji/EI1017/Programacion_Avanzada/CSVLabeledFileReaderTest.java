@@ -3,7 +3,7 @@ package es.uji.EI1017.Programacion_Avanzada;
 
 // TODO: Pon los imports especificos a tu proyecto
 
-import es.uji.EI1017.Programacion_Avanzada.Algoritmos.CSVLabeledFileReader;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSVLabeledFileReader;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.TableWithLabels;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +19,7 @@ class CSVLabeledFileReaderTest {
 
     @BeforeEach
     void setUp() {
-        reader = new CSVLabeledFileReader("iris.csv");
+        reader = new CSVLabeledFileReader();
     }
 
     @AfterEach
@@ -30,7 +30,8 @@ class CSVLabeledFileReaderTest {
     // TODO: Dependiendo de cómo manejas las excepciones, puedes añadir un try/catch o un lanzamiento de excepción aquí.    
     @Test
     void readTableFromSource() {
-        TableWithLabels table = (TableWithLabels) reader.readTableFromSource();
+        TableWithLabels table = reader.readTableFromSource("src/test/resources/iris.csv");
+
         // assert that the table is not null
         assertNotNull(table);
         // assert that the table object is actually an instance of TableWithLabels

@@ -4,11 +4,14 @@ package es.uji.EI1017.Programacion_Avanzada;
 // TODO: Pon los imports especificos a tu proyecto
 
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Distance;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.EuclideanDistance;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KMeans.KMeans;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KNN.KNN;
 import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
 import es.uji.EI1017.Programacion_Avanzada.Excepciones.LikedItemNotFoundException;
-import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV;
+//import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSVLabeledFileReader;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
 import es.uji.EI1017.Programacion_Avanzada.RecSys.RecSys;
 import org.junit.jupiter.api.*;
@@ -26,7 +29,7 @@ class RecSysTest {
 
     private String separator = System.getProperty("file.separator");
     // TODO: cambiar ruta si hace falta
-    private String songsFolder = "recommender";
+    private String songsFolder = "src/test/resources/recommender";
 
     private RecSys recSys;
     private Algorithm algorithm;
@@ -50,13 +53,15 @@ class RecSysTest {
     class KNNRecSys {
 
         @BeforeEach
-        // TODO: añadir o eliminar excepciones según tu implementación
+            // TODO: añadir o eliminar excepciones según tu implementación
         void setUp() throws IOException, URISyntaxException, InvalidClusterNumberException {
-            trainTable = new CSV().readTableWithLabels(songsFolder + separator + "songs_train.csv");
-            testTable = new CSV().readTableWithLabels(songsFolder + separator + "songs_test.csv");
+            CSVLabeledFileReader reader = new CSVLabeledFileReader();
+            trainTable = reader.readTableFromSource(songsFolder + separator + "songs_train.csv");
+            testTable = reader.readTableFromSource(songsFolder + separator + "songs_test.csv");
             testItemNames = readNames(songsFolder + separator + "songs_test_names.csv");
 
-            algorithm = new KNN();
+            Distance distance = new EuclideanDistance();
+            algorithm = new KNN(3, distance);
             recSys = new RecSys(algorithm);
             recSys.train(trainTable);
             recSys.initialise(testTable, testItemNames);
@@ -95,10 +100,11 @@ class RecSysTest {
         private long seed = 53;
 
         @BeforeEach
-        // TODO: añadir o eliminar excepciones según tu implementación
+            // TODO: añadir o eliminar excepciones según tu implementación
         void setUp() throws IOException, URISyntaxException, InvalidClusterNumberException {
-            trainTable = new CSV().readTableWithLabels(songsFolder + separator + "songs_train_withoutnames.csv");
-            testTable = new CSV().readTableWithLabels(songsFolder + separator + "songs_test_withoutnames.csv");
+            CSVLabeledFileReader reader = new CSVLabeledFileReader();
+            trainTable = reader.readTableFromSource(songsFolder + separator + "songs_train_withoutnames.csv");
+            testTable = reader.readTableFromSource(songsFolder + separator + "songs_test_withoutnames.csv");
             testItemNames = readNames(songsFolder + separator + "songs_test_names.csv");
 
             algorithm = new KMeans(numClusters, numIterations, seed);

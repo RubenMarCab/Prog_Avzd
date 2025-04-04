@@ -1,6 +1,6 @@
-package es.uji.EI1017.Programacion_Avanzada.Algoritmos;
+package es.uji.EI1017.Programacion_Avanzada.LecturaCSV;
 
-import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,11 +14,14 @@ public class CSVUnlabeledFileReader extends FileReader<Table> {
 
     @Override
     protected void processData(String data, Table table) {
-        // Se asume que cada línea es: value1, value2, ..., valueN
         String[] tokens = data.split(",");
-        // Se pueden recortar espacios en blanco, si es necesario
-        List<String> rowData = Arrays.asList(tokens);
-        table.addRow(rowData);
+        List<Double> rowData = new ArrayList<>();
+        for (String token : tokens) {
+            rowData.add(Double.parseDouble(token.trim()));
+        }
+        Row row = new Row(rowData);
+        table.addRow(row);
+
     }
 
     @Override

@@ -32,12 +32,13 @@ public class KNN implements Algorithm<TableWithLabels, Integer> {
 
         for (int i = 0; i < trainingData.getRowCount(); i++) {
             RowWithLabel row = (RowWithLabel) trainingData.getRowAt(i);
-            double distance = euclideanDistance(sample, row.getData());
+            double currentDistance = distance.calculateDistance(sample, row.getData());
 
-            if (distance < minDistance) {
-                minDistance = distance;
+            if (currentDistance < minDistance) {
+                minDistance = currentDistance;
                 predictedLabel = trainingData.getLabelAsInteger(row.getLabel());
             }
+
         }
         return predictedLabel;
     }
