@@ -43,4 +43,11 @@ public class TableWithLabels extends Table {
     public RowWithLabel getRowAt(int index) {
         return (RowWithLabel) super.getRowAt(index);
     }
+
+    private List<String> columns = new ArrayList<>();
+    public void addColumn(String columnName) {
+        // Implementation to add a column to the table
+        // For example, storing column names in a list
+        columns.add(columnName);
+    }
 }

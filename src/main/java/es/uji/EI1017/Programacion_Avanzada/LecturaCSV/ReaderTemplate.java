@@ -2,19 +2,20 @@ package es.uji.EI1017.Programacion_Avanzada.LecturaCSV;
 
 
 public abstract class ReaderTemplate<T extends Table> {
-
+        protected T tableBeingBuilt;
         // Método plantilla para leer la tabla
         public final T readTableFromSource(String source) {
             openSource(source);
+            tableBeingBuilt = createTable();
             String headers = getHeaders();
             processHeaders(headers);
-            T table = createTable();
+
             while (hasMoreData()) {
                 String data = getNextData();
-                processData(data, table);
+                processData(data, tableBeingBuilt);
             }
             closeSource();
-            return table;
+            return tableBeingBuilt;
         }
 
         protected abstract void openSource(String source);
