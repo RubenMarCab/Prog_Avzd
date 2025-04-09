@@ -30,7 +30,7 @@ class CSVLabeledFileReaderTest {
     // TODO: Dependiendo de cómo manejas las excepciones, puedes añadir un try/catch o un lanzamiento de excepción aquí.    
     @Test
     void readTableFromSource() {
-        TableWithLabels table = reader.readTableFromSource("src/test/resources/iris.csv");
+        TableWithLabels table = reader.readTableFromSource("iris.csv");
 
         // assert that the table is not null
         assertNotNull(table);

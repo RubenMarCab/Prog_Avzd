@@ -31,7 +31,7 @@ class KMeansTest {
         // TODO: En caso de manejar la excepción IOException en CSV, puedes eliminarla aquí
     void setUp() throws IOException, InvalidClusterNumberException {
         CSVLabeledFileReader reader = new CSVLabeledFileReader();
-        iris = reader.readTableFromSource("src/test/resources/iris.csv");
+        iris = reader.readTableFromSource("iris.csv");
         kMeans = new KMeans(irisClusters, numIterations, seed);
         kMeans.train(iris);
     }

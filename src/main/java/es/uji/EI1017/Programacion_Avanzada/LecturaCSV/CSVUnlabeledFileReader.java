@@ -1,15 +1,17 @@
 package es.uji.EI1017.Programacion_Avanzada.LecturaCSV;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CSVUnlabeledFileReader extends FileReader<Table> {
 
     @Override
     protected void processHeaders(String headers) {
-        // Procesar la cabecera (si es necesario)
-        System.out.println("Procesando cabecera (sin etiquetas): " + headers);
+        String[] headerColumns = headers.split(",");
+
+        for (String column : headerColumns) {
+            tableBeingBuilt.addColumn(column.trim());
+        }
     }
 
     @Override

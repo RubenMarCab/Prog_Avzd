@@ -1,7 +1,5 @@
 package es.uji.EI1017.Programacion_Avanzada.LecturaCSV;
 
-import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Row;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,5 +41,9 @@ public class Table {
 
     public void addRow(Row row) {
         rows.add(row);
+    }
+
+    public void addColumn(String columnName) {
+        this.headers.add(columnName);
     }
 }

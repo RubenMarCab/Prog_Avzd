@@ -4,8 +4,7 @@ import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Distance;
 import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
-import es.uji.EI1017.Programacion_Avanzada.Algoritmos.EuclideanDistance; // Asegúrate de importar la clase adecuada
-
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.EuclideanDistance;
 import java.util.*;
 
 public class KMeans implements Algorithm<Table, Integer> {
@@ -58,7 +57,6 @@ public class KMeans implements Algorithm<Table, Integer> {
 
         for (int i = 0; i < numIterations; i++) {
             List<List<Double>> newCentroids = new ArrayList<>();
-            // Inicializamos cada clúster con una lista de ceros de la dimensión correspondiente
             for (int j = 0; j < numClusters; j++) {
                 newCentroids.add(new ArrayList<>(Collections.nCopies(centroids.get(0).size(), 0.0)));
             }

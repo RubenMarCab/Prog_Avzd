@@ -25,29 +25,27 @@ public class TableWithLabels extends Table {
     public Integer getLabelAsInteger(String label) {
         return labelsMap.computeIfAbsent(label, k -> labelsMap.size());
     }
-    // Sobrescribir addRow para trabajar con RowWithLabel
+
     public void addRow(RowWithLabel row) {
-        super.addRow(row); // Usa el método de la clase base para añadir la fila
+        super.addRow(row);
         String label = row.getLabel();
         getLabelAsInteger(label);
     }
+
     public void addLabel(String label) {
         labels.add(label);
     }
+
     public List<String> getLabels() {
         return labels;
     }
 
-    // Sobrescribir getRowAt para devolver RowWithLabel
     @Override
     public RowWithLabel getRowAt(int index) {
         return (RowWithLabel) super.getRowAt(index);
     }
 
-    private List<String> columns = new ArrayList<>();
     public void addColumn(String columnName) {
-        // Implementation to add a column to the table
-        // For example, storing column names in a list
-        columns.add(columnName);
+        getHeaders().add(columnName);
     }
 }

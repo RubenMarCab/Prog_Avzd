@@ -10,26 +10,23 @@ import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KMeans.KMeans;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KNN.KNN;
 import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
 import es.uji.EI1017.Programacion_Avanzada.Excepciones.LikedItemNotFoundException;
-//import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSV;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.CSVLabeledFileReader;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
 import es.uji.EI1017.Programacion_Avanzada.RecSys.RecSys;
 import org.junit.jupiter.api.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class RecSysTest {
 
     private String separator = System.getProperty("file.separator");
     // TODO: cambiar ruta si hace falta
-    private String songsFolder = "src/test/resources/recommender";
+    private String songsFolder = "recommender";
 
     private RecSys recSys;
     private Algorithm algorithm;

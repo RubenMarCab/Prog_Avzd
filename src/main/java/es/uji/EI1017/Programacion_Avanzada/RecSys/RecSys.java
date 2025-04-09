@@ -4,7 +4,6 @@ import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
 import es.uji.EI1017.Programacion_Avanzada.Excepciones.LikedItemNotFoundException;
 import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
-
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -15,14 +14,6 @@ public class RecSys {
     private List<String> testItemNames;
     private Map<String, Integer> estimatedClasses;
 
-    /*
-     * Bloque estático que agrega al classpath dos rutas:
-     *  1. La raíz del proyecto (".")
-     *  2. La carpeta "src/test/resources"
-     *
-     * De este modo, si el test llama a getResource("src/test/resources/recommender/songs_test_names.csv")
-     * se encontrará el archivo si existe en esa ruta relativa.
-     */
     static {
         try {
             // Obtiene la raíz del proyecto
@@ -64,16 +55,20 @@ public class RecSys {
     }
 
     public List<String> recommend(String nameLikedItem, int numRecommendations) throws LikedItemNotFoundException {
+
         if (!estimatedClasses.containsKey(nameLikedItem)) {
             throw new LikedItemNotFoundException(nameLikedItem);
         }
+
         int targetClass = estimatedClasses.get(nameLikedItem);
         List<String> recommendations = new ArrayList<>();
+
         for (Map.Entry<String, Integer> entry : estimatedClasses.entrySet()) {
             if (!entry.getKey().equals(nameLikedItem) && entry.getValue() == targetClass) {
                 recommendations.add(entry.getKey());
             }
         }
+
         return recommendations.subList(0, Math.min(numRecommendations, recommendations.size()));
     }
 }

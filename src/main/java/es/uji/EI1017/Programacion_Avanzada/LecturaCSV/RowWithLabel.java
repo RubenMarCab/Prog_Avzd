@@ -1,7 +1,5 @@
 package es.uji.EI1017.Programacion_Avanzada.LecturaCSV;
 
-import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Row;
-
 import java.util.List;
 
 public class RowWithLabel extends Row {

@@ -4,60 +4,59 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.FileReader;
 
 public class CSVLabeledFileReader extends ReaderTemplate<TableWithLabels> {
 
     private BufferedReader reader;
     private String currentLine;
-    // Se elimina el campo privado tableBeingBuilt para utilizar el protegido heredado de ReaderTemplate
 
     @Override
     protected void processHeaders(String headers) {
         if (tableBeingBuilt == null) {
             throw new IllegalStateException("Table is not initialized. Ensure createTable() is called before processHeaders.");
         }
-        // Separamos los encabezados
         String[] headerColumns = headers.split(",");
-        // Se añaden todas las columnas excepto la última (suponiendo que es la etiqueta/clase)
         for (int i = 0; i < headerColumns.length - 1; i++) {
             tableBeingBuilt.addColumn(headerColumns[i].trim());
         }
     }
 
+
     @Override
     protected void processData(String data, TableWithLabels table) {
         String[] tokens = data.split(",");
-
-        // Obtener la etiqueta (última columna)
         String label = tokens[tokens.length - 1].trim();
-
-        // Convertir las demás columnas a Double
         List<Double> rowData = new ArrayList<>();
         for (int i = 0; i < tokens.length - 1; i++) {
             rowData.add(Double.parseDouble(tokens[i].trim()));
         }
-
-        // Crear y añadir el RowWithLabel
         RowWithLabel row = new RowWithLabel(rowData, label);
         table.addRow(row);
     }
 
     @Override
     protected TableWithLabels createTable() {
-        // La plantilla (ReaderTemplate) asigna el resultado a su variable protegida tableBeingBuilt
         return new TableWithLabels();
     }
 
     @Override
     protected void openSource(String source) {
         try {
-            reader = new BufferedReader(new FileReader(source));
-            currentLine = reader.readLine(); // Leer la primera línea (encabezados)
+            ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            java.net.URL url = cl.getResource(source);
+
+            if (url == null) {
+                throw new IOException("Resource not found in classpath: " + source);
+            }
+
+            reader = new BufferedReader(new java.io.InputStreamReader(url.openStream()));
+            currentLine = reader.readLine();
+
         } catch (IOException e) {
             throw new RuntimeException("Error opening source: " + source, e);
         }
     }
+
 
     @Override
     protected String getHeaders() {
@@ -66,7 +65,7 @@ public class CSVLabeledFileReader extends ReaderTemplate<TableWithLabels> {
         }
         String headers = currentLine;
         try {
-            currentLine = reader.readLine(); // Avanza a la siguiente línea
+            currentLine = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException("Error reading headers.", e);
         }
@@ -82,7 +81,7 @@ public class CSVLabeledFileReader extends ReaderTemplate<TableWithLabels> {
     protected String getNextData() {
         String data = currentLine;
         try {
-            currentLine = reader.readLine(); // Avanza a la siguiente línea
+            currentLine = reader.readLine();
         } catch (IOException e) {
             throw new RuntimeException("Error reading next data line.", e);
         }
