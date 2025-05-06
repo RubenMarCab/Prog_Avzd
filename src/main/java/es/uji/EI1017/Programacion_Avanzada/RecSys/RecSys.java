@@ -45,7 +45,12 @@ public class RecSys {
         algorithm.train(trainData);
     }
 
-    public void initialise(Table testData, List<String> testItemNames) {
+    public void initialise(Table testData, List<String> testItemNames) throws InvalidClusterNumberException {
+        try {
+            algorithm.train(testData);
+        } catch (Exception e) {
+            throw e;
+        }
         this.testItemNames = testItemNames;
         estimatedClasses.clear();
         for (int i = 0; i < testData.getRowCount(); i++) {
