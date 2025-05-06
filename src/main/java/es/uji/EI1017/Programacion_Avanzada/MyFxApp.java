@@ -13,12 +13,16 @@ public class MyFxApp extends Application {
     public void start(Stage primaryStage) {
         VBox layout = new VBox(); // Contenedor principal
         Label label = new Label("Hola mundo!"); // Texto no editable
-        Button button = new Button("Un bot�n :D"); // Un bot�n, no hace nada
-        layout.getChildren().addAll(label, button); // A�ade elementos al contenedor
+        Button button = new Button("Un botón :D"); // Un botón, no hace nada
+        layout.getChildren().addAll(label, button); // Añade elementos al contenedor
         layout.setAlignment(Pos.CENTER); // Centra los elementos
-// A�ade el contenedor a la escena, y la escena al escenario
+        // Añade el contenedor a la escena, y la escena al escenario
         primaryStage.setScene(new Scene(layout, 200, 100));
-        primaryStage.setTitle("JavaFXApp"); // T�tulo de ventana
+        primaryStage.setTitle("JavaFXApp"); // Título de ventana
         primaryStage.show(); // Muestra la ventana
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
