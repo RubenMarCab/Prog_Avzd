@@ -6,6 +6,7 @@ import es.uji.EI1017.Programacion_Avanzada.Controller.MainController;
 
 public class MyFxApp extends Application {
 
+    //Lanza la app
     @Override
     public void start(Stage primaryStage) throws Exception {
         MainController controller = new MainController();

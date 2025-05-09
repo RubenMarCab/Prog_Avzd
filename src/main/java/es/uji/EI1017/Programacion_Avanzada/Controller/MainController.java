@@ -1,13 +1,9 @@
 package es.uji.EI1017.Programacion_Avanzada.Controller;
 
-import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
-import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Distance;
-import es.uji.EI1017.Programacion_Avanzada.Algoritmos.EuclideanDistance;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.*;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KMeans.KMeans;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KNN.KNN;
-import es.uji.EI1017.Programacion_Avanzada.Algoritmos.ManhattanDistance;
-import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
-import es.uji.EI1017.Programacion_Avanzada.Excepciones.LikedItemNotFoundException;
+import es.uji.EI1017.Programacion_Avanzada.Excepciones.*;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.TableWithLabels;
 import es.uji.EI1017.Programacion_Avanzada.Model.SongDataLoader;
@@ -27,15 +23,21 @@ public class MainController {
         view = new MainView();
         view.start(stage);
 
-        // Pobla la lista de canciones reales
+        // Carga inicial de canciones
         loadSongs();
 
-        // Deshabilita el botón si no hay selección completa
-        view.recommendButton.setDisable(true);
-        view.algorithmComboBox.valueProperty().addListener((o, old, val) -> checkEnableRecommend());
-        view.distanceComboBox.valueProperty().addListener((o, old, val) -> checkEnableRecommend());
-        view.songListView.getSelectionModel().selectedItemProperty().addListener((o, old, val) -> checkEnableRecommend());
+        // Listeners para habilitar/deshabilitar el botón
+        view.songRadio.selectedProperty().addListener((o,old,n) -> checkEnable());
+        view.genreRadio.selectedProperty().addListener((o,old,n) -> checkEnable());
+        view.euclidRadio.selectedProperty().addListener((o,old,n) -> checkEnable());
+        view.manhRadio.selectedProperty().addListener((o,old,n) -> checkEnable());
+        view.songListView.getSelectionModel().selectedItemProperty()
+                .addListener((o,old,n) -> checkEnable());
 
+        // Acción de limpiar la lista de resultados
+        view.clearButton.setOnAction(e -> view.recommendationListView.getItems().clear());
+
+        // Acción de recomendar
         view.recommendButton.setOnAction(e -> {
             try {
                 generateRecommendations();
@@ -45,11 +47,11 @@ public class MainController {
         });
     }
 
-    private void checkEnableRecommend() {
-        boolean ready = view.algorithmComboBox.getValue() != null
-                && view.distanceComboBox.getValue()  != null
-                && view.songListView.getSelectionModel().getSelectedItem() != null;
-        view.recommendButton.setDisable(!ready);
+    private void checkEnable() {
+        boolean algoSelected   = view.songRadio.isSelected() || view.genreRadio.isSelected();
+        boolean metricSelected = view.euclidRadio.isSelected() || view.manhRadio.isSelected();
+        boolean songSelected   = view.songListView.getSelectionModel().getSelectedItem() != null;
+        view.recommendButton.setDisable(!(algoSelected && metricSelected && songSelected));
     }
 
     private void loadSongs() {
@@ -58,47 +60,45 @@ public class MainController {
     }
 
     private void generateRecommendations() throws InvalidClusterNumberException {
-        String algorithmChoice = view.algorithmComboBox.getValue();
-        String distanceChoice  = view.distanceComboBox.getValue();
-        String likedSong       = view.songListView.getSelectionModel().getSelectedItem();
-        int    numRecs         = view.numRecommendationsSpinner.getValue();
-
-        // 1. Crea el algoritmo
-        Algorithm algorithm = createAlgorithm(algorithmChoice, distanceChoice);
-        recSys = new RecSys(algorithm);
-
-        // 2. Carga datos reales
-        TableWithLabels trainTable = SongDataLoader.loadTrainData();
-        Table            testTable  = SongDataLoader.loadTestData();
-        List<String>     names      = SongDataLoader.loadTestNames();
-
-        // 3. Entrena y inicializa
-        recSys.train(trainTable);
-        recSys.initialise(testTable, names);
-
-        // 4. Llama a recommend() y maneja si el ítem no existe
-        try {
-            List<String> recs = recSys.recommend(likedSong, numRecs);
-            view.recommendationOutput.setText(String.join("\n", recs));
-        } catch (LikedItemNotFoundException ex) {
-            showError("Canción no válida", ex.getMessage());
-        }
-    }
-
-    private Algorithm createAlgorithm(String type, String distance)
-            throws InvalidClusterNumberException {
-        Distance dist = "Manhattan".equals(distance)
+        // ----------------------------------------------------
+        // 1. Elige algoritmo según radio buttons
+        // ----------------------------------------------------
+        Distance dist = view.manhRadio.isSelected()
                 ? new ManhattanDistance()
                 : new EuclideanDistance();
 
-        if ("KNN".equals(type)) {
-            int k = 1;  // o hazlo configurable
-            return new KNN(k, dist);
+        Algorithm algorithm;
+        if (view.songRadio.isSelected()) {
+            algorithm = new KNN(1, dist);
         } else {
-            int numClusters   = 3;
-            int numIterations = 10;
-            long seed         = 42L;
-            return new KMeans(numClusters, numIterations, seed, dist);
+            algorithm = new KMeans(3, 10, 42L, dist);
+        }
+
+        recSys = new RecSys(algorithm);
+
+        // ----------------------------------------------------
+        // 2. Carga datos
+        // ----------------------------------------------------
+        TableWithLabels train = SongDataLoader.loadTrainData();
+        Table test  = SongDataLoader.loadTestData();
+        List<String> names = SongDataLoader.loadTestNames();
+
+        // ----------------------------------------------------
+        // 3. Entrena e inicializa
+        // ----------------------------------------------------
+        recSys.train(train);
+        recSys.initialise(test, names);
+
+        // ----------------------------------------------------
+        // 4. Recomienda y muestra en la lista
+        // ----------------------------------------------------
+        try {
+            String liked = view.songListView.getSelectionModel().getSelectedItem();
+            int cnt = view.numRecommendationsSpinner.getValue();
+            List<String> recs = recSys.recommend(liked, cnt);
+            view.recommendationListView.getItems().setAll(recs);
+        } catch (LikedItemNotFoundException ex) {
+            showError("Canción no encontrada", ex.getMessage());
         }
     }
 

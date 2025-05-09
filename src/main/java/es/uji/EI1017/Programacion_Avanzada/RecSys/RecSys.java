@@ -1,8 +1,7 @@
 package es.uji.EI1017.Programacion_Avanzada.RecSys;
 
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
-import es.uji.EI1017.Programacion_Avanzada.Excepciones.LikedItemNotFoundException;
-import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
+import es.uji.EI1017.Programacion_Avanzada.Excepciones.*;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
 import java.io.File;
 import java.net.URL;

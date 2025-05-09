@@ -25,7 +25,7 @@ public class KMeans implements Algorithm<Table, Integer> {
             throw new InvalidClusterNumberException(numClusters, 0);
         }
         if (distance == null) {
-            throw new IllegalArgumentException("Distance cannot be null");
+            throw new IllegalArgumentException("Distancia no debe ser null");
         }
         this.numClusters = numClusters;
         this.numIterations = numIterations;
@@ -69,7 +69,6 @@ public class KMeans implements Algorithm<Table, Integer> {
         }
         train((TableWithLabels) data);
     }
-
 
 
     /* MÉTODOS AUXILIARES */
