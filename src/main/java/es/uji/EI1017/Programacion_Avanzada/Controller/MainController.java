@@ -1,76 +1,112 @@
 package es.uji.EI1017.Programacion_Avanzada.Controller;
 
-import es.uji.EI1017.Programacion_Avanzada.RecSys.RecSys;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Algorithm;
-import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.Distance;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.EuclideanDistance;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KMeans.KMeans;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.KNN.KNN;
+import es.uji.EI1017.Programacion_Avanzada.Algoritmos.ManhattanDistance;
+import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberException;
 import es.uji.EI1017.Programacion_Avanzada.Excepciones.LikedItemNotFoundException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
+import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.TableWithLabels;
+import es.uji.EI1017.Programacion_Avanzada.Model.SongDataLoader;
+import es.uji.EI1017.Programacion_Avanzada.RecSys.RecSys;
+import es.uji.EI1017.Programacion_Avanzada.View.MainView;
+
+import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 
 import java.util.List;
 
 public class MainController {
-
-    @FXML private ComboBox<String> cbAlgorithm;
-    @FXML private ComboBox<String> cbDistance;
-    @FXML private Spinner<Integer> spnCount;
-    @FXML private Button btnRecommend;
-    @FXML private ListView<String> lvSongs;
-    @FXML private TableView<String> tvResults;
-    @FXML private TableColumn<String, String> colTitle;
-
     private RecSys recSys;
-    private ObservableList<String> songList;
+    private MainView view;
 
-    @FXML
-    public void initialize() {
-        // Configurar ComboBoxes
-        cbAlgorithm.setItems(FXCollections.observableArrayList("kMeans", "kNN"));
-        cbDistance.setItems(FXCollections.observableArrayList("Euclidiana", "Manhattan"));
+    public void init(Stage stage) {
+        view = new MainView();
+        view.start(stage);
 
-        // Spinner para número de recomendaciones
-        SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 5);
-        spnCount.setValueFactory(factory);
+        // Pobla la lista de canciones reales
+        loadSongs();
 
-        // Configurar columna de resultados
-        colTitle.setCellValueFactory(new PropertyValueFactory<>(""));
+        // Deshabilita el botón si no hay selección completa
+        view.recommendButton.setDisable(true);
+        view.algorithmComboBox.valueProperty().addListener((o, old, val) -> checkEnableRecommend());
+        view.distanceComboBox.valueProperty().addListener((o, old, val) -> checkEnableRecommend());
+        view.songListView.getSelectionModel().selectedItemProperty().addListener((o, old, val) -> checkEnableRecommend());
 
-        // Deshabilitar botón hasta selección
-        btnRecommend.setDisable(true);
-        lvSongs.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) ->
-                btnRecommend.setDisable(newSel == null)
-        );
+        view.recommendButton.setOnAction(e -> {
+            try {
+                generateRecommendations();
+            } catch (InvalidClusterNumberException ex) {
+                showError("Parámetros de KMeans inválidos", ex.getMessage());
+            }
+        });
     }
 
-    public void setRecSys(RecSys recSys) {
-        this.recSys = recSys;
+    private void checkEnableRecommend() {
+        boolean ready = view.algorithmComboBox.getValue() != null
+                && view.distanceComboBox.getValue()  != null
+                && view.songListView.getSelectionModel().getSelectedItem() != null;
+        view.recommendButton.setDisable(!ready);
     }
 
-    public void setSongList(List<String> songs) {
-        this.songList = FXCollections.observableArrayList(songs);
-        lvSongs.setItems(songList);
+    private void loadSongs() {
+        List<String> names = SongDataLoader.loadTestNames();
+        view.songListView.getItems().setAll(names);
     }
 
-    @FXML
-    public void onRecommend(ActionEvent event) {
-        String selected = lvSongs.getSelectionModel().getSelectedItem();
-        int count = spnCount.getValue();
+    private void generateRecommendations() throws InvalidClusterNumberException {
+        String algorithmChoice = view.algorithmComboBox.getValue();
+        String distanceChoice  = view.distanceComboBox.getValue();
+        String likedSong       = view.songListView.getSelectionModel().getSelectedItem();
+        int    numRecs         = view.numRecommendationsSpinner.getValue();
 
-        // Validar selección
-        if (selected == null || recSys == null) return;
+        // 1. Crea el algoritmo
+        Algorithm algorithm = createAlgorithm(algorithmChoice, distanceChoice);
+        recSys = new RecSys(algorithm);
 
+        // 2. Carga datos reales
+        TableWithLabels trainTable = SongDataLoader.loadTrainData();
+        Table            testTable  = SongDataLoader.loadTestData();
+        List<String>     names      = SongDataLoader.loadTestNames();
+
+        // 3. Entrena y inicializa
+        recSys.train(trainTable);
+        recSys.initialise(testTable, names);
+
+        // 4. Llama a recommend() y maneja si el ítem no existe
         try {
-            List<String> recommendations = recSys.recommend(selected, count);
-            tvResults.setItems(FXCollections.observableArrayList(recommendations));
-        } catch (LikedItemNotFoundException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("No se pudo encontrar la canción seleccionada");
-            alert.showAndWait();
+            List<String> recs = recSys.recommend(likedSong, numRecs);
+            view.recommendationOutput.setText(String.join("\n", recs));
+        } catch (LikedItemNotFoundException ex) {
+            showError("Canción no válida", ex.getMessage());
         }
+    }
+
+    private Algorithm createAlgorithm(String type, String distance)
+            throws InvalidClusterNumberException {
+        Distance dist = "Manhattan".equals(distance)
+                ? new ManhattanDistance()
+                : new EuclideanDistance();
+
+        if ("KNN".equals(type)) {
+            int k = 1;  // o hazlo configurable
+            return new KNN(k, dist);
+        } else {
+            int numClusters   = 3;
+            int numIterations = 10;
+            long seed         = 42L;
+            return new KMeans(numClusters, numIterations, seed, dist);
+        }
+    }
+
+    private void showError(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

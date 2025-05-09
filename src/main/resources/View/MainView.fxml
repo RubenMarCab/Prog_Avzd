@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="es.uji.EI1017.Programacion_Avanzada.Controller.MainController">
+
+    <top>
+        <HBox spacing="10" padding="10">
+            <Label text="Algoritmo:"/>
+            <ComboBox fx:id="algoCombo"/>
+            <Label text="Distancia:"/>
+            <ComboBox fx:id="distCombo"/>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane>
+            <ListView fx:id="songsList" prefWidth="200"/>
+            <ListView fx:id="resultList" prefWidth="200"/>
+        </SplitPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" padding="10" alignment="CENTER_RIGHT">
+            <Label text="# Rec:"/>
+            <Spinner fx:id="numRecSpinner"/>
+            <Button text="Recommend" fx:id="recommendBtn" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

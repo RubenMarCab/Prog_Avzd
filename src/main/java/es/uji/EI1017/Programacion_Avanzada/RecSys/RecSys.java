@@ -45,12 +45,7 @@ public class RecSys {
         algorithm.train(trainData);
     }
 
-    public void initialise(Table testData, List<String> testItemNames) throws InvalidClusterNumberException {
-        try {
-            algorithm.train(testData);
-        } catch (Exception e) {
-            throw e;
-        }
+    public void initialise(Table testData, List<String> testItemNames) {
         this.testItemNames = testItemNames;
         estimatedClasses.clear();
         for (int i = 0; i < testData.getRowCount(); i++) {
@@ -58,6 +53,7 @@ public class RecSys {
             estimatedClasses.put(testItemNames.get(i), classLabel);
         }
     }
+
 
     public List<String> recommend(String nameLikedItem, int numRecommendations) throws LikedItemNotFoundException {
 
@@ -76,4 +72,12 @@ public class RecSys {
 
         return recommendations.subList(0, Math.min(numRecommendations, recommendations.size()));
     }
+    public Algorithm<Table,Integer> getAlgorithm() {
+        return this.algorithm;
+    }
+
+    public Map<String,Integer> getEstimatedClasses() {
+        return this.estimatedClasses;
+    }
+
 }
