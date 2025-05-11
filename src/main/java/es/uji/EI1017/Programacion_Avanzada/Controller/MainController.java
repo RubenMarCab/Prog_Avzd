@@ -12,7 +12,6 @@ import es.uji.EI1017.Programacion_Avanzada.View.MainView;
 
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-
 import java.util.List;
 
 public class MainController {

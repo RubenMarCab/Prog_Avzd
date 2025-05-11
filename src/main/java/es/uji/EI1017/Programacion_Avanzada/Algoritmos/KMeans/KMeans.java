@@ -6,6 +6,7 @@ import es.uji.EI1017.Programacion_Avanzada.Excepciones.InvalidClusterNumberExcep
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.Table;
 import es.uji.EI1017.Programacion_Avanzada.Algoritmos.EuclideanDistance;
 import es.uji.EI1017.Programacion_Avanzada.LecturaCSV.TableWithLabels;
+
 import java.util.*;
 
 public class KMeans implements Algorithm<Table, Integer> {
@@ -63,15 +64,14 @@ public class KMeans implements Algorithm<Table, Integer> {
     public void train(Table data) throws InvalidClusterNumberException {
         if (!(data instanceof TableWithLabels)) {
             throw new IllegalArgumentException(
-                    "KMeans necesita un TableWithLabels, pero recibió: "
-                            + data.getClass().getSimpleName()
+                    "KMeans necesita un TableWithLabels, pero recibió: " + data.getClass().getSimpleName()
             );
         }
         train((TableWithLabels) data);
     }
 
 
-    /* MÉTODOS AUXILIARES */
+    // MÉTODOS AUXILIARES
     private void validateClusterNumber(TableWithLabels data) throws InvalidClusterNumberException {
         if (numClusters > data.getRowCount()) {
             throw new InvalidClusterNumberException(numClusters, data.getRowCount());
@@ -132,10 +132,9 @@ public class KMeans implements Algorithm<Table, Integer> {
 
         return bestCluster;
     }
-    /**
-     * Calcula la media (vector) de un conjunto de puntos.
-     */
-    private List<Double> meanOf(List<List<Double>> points) {
+
+    // Calcula la media (vector) de un conjunto de puntos.
+         private List<Double> meanOf(List<List<Double>> points) {
         if (points.isEmpty()) return List.of();
         int dim = points.get(0).size();
         List<Double> mean = new ArrayList<>(Collections.nCopies(dim, 0.0));
@@ -150,9 +149,7 @@ public class KMeans implements Algorithm<Table, Integer> {
         return mean;
     }
 
-    /**
-     * Suma el cambio de posición de cada centroide respecto a la iteración previa.
-     */
+    // Suma el cambio de posición de cada centroide respecto a la iteración previa.
     private double computeShift() {
         double sum = 0.0;
         for (int i = 0; i < centroids.size(); i++) {
